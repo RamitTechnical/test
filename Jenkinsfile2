@@ -1,0 +1,8 @@
+@Library('jenkins-shared-library1') _
+
+dockerPipeline(
+    gitUrl: "https://github.com/RamitTechnical/test.git",
+    branch: "master",
+    imageName: "note-app",
+    dockerCredId: "Docker-Hub"
+)
