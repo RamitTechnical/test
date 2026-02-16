@@ -1,0 +1,38 @@
+@Library('jenkins-shared-library') _
+
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Build') {
+            steps {
+                gitCheckout(
+                    gitUrl: "https://github.com/RamitTechnical/test.git",
+                    branch: "master"
+                )
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dockerBuild("note-app")
+            }
+        }
+
+        stage('Push') {
+            steps {
+                dockerPush(
+                    imageName: "note-app",
+                    dockerCredId: "Docker-Hub"
+                )
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                dockerDeploy()
+            }
+        }
+    }
+}
